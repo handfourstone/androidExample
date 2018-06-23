@@ -19,7 +19,8 @@ public class FirstActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                Intent intent = new Intent("com.example.tl.activitytest.ACTION_START");
+                intent.addCategory("com.example.tl.activitytest.MY_CATEGORY");
                 startActivity(intent);
             }
         });
