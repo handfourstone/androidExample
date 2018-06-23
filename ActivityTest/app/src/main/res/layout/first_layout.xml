@@ -9,5 +9,17 @@
         android:layout_height="wrap_content"
         android:text="button"
         />
+    <Button
+        android:id="@+id/button_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="给小甜甜打电话"
+        />
+    <Button
+        android:id="@+id/button_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示县中位置"
+        />
 
 </LinearLayout>

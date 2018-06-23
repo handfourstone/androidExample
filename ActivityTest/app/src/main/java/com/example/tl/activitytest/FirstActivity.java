@@ -25,6 +25,24 @@ public class FirstActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button button2 = findViewById(R.id.button_2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("tel:15319514333"));
+                startActivity(intent);
+            }
+        });
+        Button button3 = findViewById(R.id.button_3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:36.286439,109.349164"));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
