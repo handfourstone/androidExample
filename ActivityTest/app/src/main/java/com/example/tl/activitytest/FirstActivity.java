@@ -18,7 +18,7 @@ public class FirstActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FirstActivity.this,"You Clicked Button 1",Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
