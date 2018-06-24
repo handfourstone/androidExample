@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
+        if(savedInstanceState != null) {
+            String tempData = savedInstanceState.getString("key");
+            Toast.makeText(this,tempData,Toast.LENGTH_SHORT).show();
+        }
         Button startNormalActivity = findViewById(R.id.start_normal_activity);
         Button startDialogActivity = findViewById(R.id.start_dialog_activity);
 
@@ -68,5 +73,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String tempData = "something you typed";
+        outState.putString("key", tempData);
+        Log.d(TAG, "onSaveInstanceState");
     }
 }
