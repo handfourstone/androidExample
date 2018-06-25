@@ -26,8 +26,7 @@ public class FirstActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String data = "Hello SecondActivity";
-                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
-                startActivity(intent);
+                SecondActivity.actionStart(FirstActivity.this,"parm1","parm2");
             }
         });
         Button button2 = findViewById(R.id.button_2);
