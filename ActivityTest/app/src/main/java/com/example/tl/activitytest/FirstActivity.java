@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,17 +14,19 @@ import android.widget.Toast;
 
 public class FirstActivity extends AppCompatActivity {
 
+    String TAG = "tuolei";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, this.toString());
         setContentView(R.layout.first_layout);
         Button button1 = findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String data = "Hello SecondActivity";
-                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
+                startActivity(intent);
             }
         });
         Button button2 = findViewById(R.id.button_2);
