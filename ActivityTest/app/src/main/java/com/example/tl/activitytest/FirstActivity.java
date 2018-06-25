@@ -25,7 +25,7 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String data = "Hello SecondActivity";
-                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
+                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,5 +80,17 @@ public class FirstActivity extends AppCompatActivity {
                 break;
             default:
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart: ");
     }
 }
