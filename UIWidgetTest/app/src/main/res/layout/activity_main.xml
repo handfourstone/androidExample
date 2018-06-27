@@ -33,4 +33,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/apple"/>
 
+    <ProgressBar
+        android:id="@+id/process_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
