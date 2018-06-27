@@ -29,11 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button:
-                if (progressBar.getVisibility() == View.VISIBLE) {
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
+                int progress = progressBar.getProgress();
+                progress += 10;
+                progressBar.setProgress(progress);
                 break;
             default:
                 break;
