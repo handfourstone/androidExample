@@ -1,5 +1,6 @@
 package com.example.tl.uiwidgettest;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,9 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button:
-                int progress = progressBar.getProgress();
-                progress += 10;
-                progressBar.setProgress(progress);
+                ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setTitle("This is a ProgressDialog");
+                progressDialog.setMessage("Loading...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
                 break;
             default:
                 break;
