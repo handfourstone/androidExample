@@ -45,11 +45,27 @@ public class FruitAdapter extends ArrayAdapter<Fruit>{
         View 	inflate(int resource, ViewGroup root, boolean attachToRoot)
             Inflate a new view hierarchy from the specified xml resource.
         */
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-        ImageView fruitImage = view.findViewById(R.id.fruit_image);
-        TextView fruitName = view.findViewById(R.id.fruit_name);
-        fruitImage.setImageResource(fruit.getImgId());
-        fruitName.setText(fruit.getName());
+
+        View view;
+        ViewHolder viewHolder;
+
+        if (convertView == null){
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.fruitImage = view.findViewById(R.id.fruit_image);
+            viewHolder.fruitName = view.findViewById(R.id.fruit_name);
+            view.setTag(viewHolder);
+        } else {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
+        }
+        viewHolder.fruitName.setText(fruit.getName());
+        viewHolder.fruitImage.setImageResource(fruit.getImgId());
         return view;
+    }
+
+    class ViewHolder{
+        ImageView fruitImage;
+        TextView fruitName;
     }
 }
