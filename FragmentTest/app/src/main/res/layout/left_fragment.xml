@@ -11,4 +11,11 @@
         android:layout_gravity="center_horizontal"
         android:text="Button"/>
 
+    <TextView
+        android:id="@+id/left_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="This is default text"/>
+
 </LinearLayout>

@@ -10,6 +10,12 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public void fillLeftText(String text) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        LeftFragment leftFragment = (LeftFragment)fragmentManager.findFragmentById(R.id.left_fragment);
+        leftFragment.fillText(text);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
