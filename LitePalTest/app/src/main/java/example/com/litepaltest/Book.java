@@ -6,6 +6,15 @@ public class Book {
     private double price;
     private int pages;
     private String name;
+    private int year;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public int getId() {
         return id;
