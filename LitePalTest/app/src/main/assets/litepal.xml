@@ -5,6 +5,6 @@
     <version value="1"></version>
 
     <list>
-
+        <mapping class="example.com.litepaltest.Book"></mapping>
     </list>
 </litepal>
