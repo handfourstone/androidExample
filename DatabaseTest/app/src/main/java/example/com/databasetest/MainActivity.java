@@ -53,5 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 db.update("Book",values,"name = ?",new String[]{"The Da Vinci Code"});
             }
         });
+
+        Button deleteDate = findViewById(R.id.delete_date);
+        deleteDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                db.delete("Book", "pages > ?", new String[]{"480"});
+            }
+        });
     }
 }
