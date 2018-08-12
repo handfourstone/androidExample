@@ -20,5 +20,18 @@ public class MainActivity extends AppCompatActivity {
                 LitePal.getDatabase();
             }
         });
+
+        Button addData = findViewById(R.id.add_data);
+        addData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Book book = new Book();
+                book.setName("MyBook");
+                book.setAuthor("TuoLei");
+                book.setPages(200);
+                book.setPrice(16.96);
+                book.save();
+            }
+        });
     }
 }

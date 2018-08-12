@@ -1,7 +1,12 @@
 package example.com.litepaltest;
 
-public class Book {
-    private int id;
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
+import org.litepal.exceptions.DataSupportException;
+
+public class Book extends LitePalSupport{
+//    private int id;
     private  String author;
     private double price;
     private int pages;
@@ -16,13 +21,13 @@ public class Book {
         this.year = year;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getAuthor() {
         return author;
