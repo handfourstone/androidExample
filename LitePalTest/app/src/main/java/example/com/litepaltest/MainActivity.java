@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,5 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 book.updateAll("author = ? and pages > ?", "Liang", "100");
             }
         });
+
+        Button deleteData = findViewById(R.id.delete_date);
+        deleteData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LitePal.deleteAll(Book.class, "pages = ?", "0");
+            }
+        });
+
+        
     }
 }
