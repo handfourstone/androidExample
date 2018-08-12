@@ -39,13 +39,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Book book = new Book();
-                book.setName("MyBook");
                 book.setAuthor("TuoLei");
-                book.setPages(400);
-                book.setPrice(16.96);
-                book.save();
-                book.setPages(600);
-                book.save();
+                book.setToDefault("pages");
+                book.updateAll("author = ? and pages > ?", "Liang", "100");
             }
         });
     }
