@@ -2,11 +2,14 @@ package example.com.litepaltest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +57,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        
+        Button queryData = findViewById(R.id.query_data);
+        queryData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String TAG = "findAll";
+               // List<Book> books = LitePal.findAll(Book.class);
+                List<Book> books = LitePal.select("name", "author")
+                                           .where("pages > ?", "100")
+                                           .order("pages")
+                                           .limit(10)
+                                           .offset(1)
+                                           .find(Book.class);
+                for (Book book : books) {
+                    Log.d(TAG, "name:" + book.getName());
+                    Log.d(TAG, "author:" + book.getAuthor());
+                }
+            }
+        });
     }
 }
