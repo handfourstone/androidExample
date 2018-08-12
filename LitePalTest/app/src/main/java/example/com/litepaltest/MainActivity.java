@@ -33,5 +33,20 @@ public class MainActivity extends AppCompatActivity {
                 book.save();
             }
         });
+
+        Button updateData = findViewById(R.id.update_data);
+        updateData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Book book = new Book();
+                book.setName("MyBook");
+                book.setAuthor("TuoLei");
+                book.setPages(400);
+                book.setPrice(16.96);
+                book.save();
+                book.setPages(600);
+                book.save();
+            }
+        });
     }
 }
