@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //第三步
                 Notification notification = notificationBuilder
                         .setContentTitle("This is content title")
-                        .setContentText("This is content text")
+                        .setContentText("This is big text.")
+                        //设置长文字
+                        .setStyle(new Notification.BigTextStyle().bigText("This is big text. 111111111111111111111111111111111111111111"))
                         .setWhen(System.currentTimeMillis())
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentIntent(pd)
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // 不想单独设置，也可以使用手机默认设置
                         //.setDefaults(NotificationCompat.DEFAULT_ALL)
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                        //设置大图标
+                        .setStyle(new Notification.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher)))
+                        //设置优先级，最高优先级会在通知的时候屏幕顶端弹窗提示。
+                        .setPriority(Notification.PRIORITY_MAX)
                         .build();
                 //第四步
                 manager.notify(1, notification);
