@@ -2,6 +2,8 @@ package com.example.notificationtest;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_notice:
+                Intent intent = new Intent(this, NotificationActivity.class);
+                PendingIntent pd = PendingIntent.getActivity(this, 0, intent, 0);
                 //第一步
                 NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
                 //第二步
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setContentText("This is content text")
                         .setWhen(System.currentTimeMillis())
                         .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentIntent(pd)
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
                         .build();
                 //第四步
