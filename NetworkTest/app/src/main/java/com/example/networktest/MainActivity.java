@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button sendRequest = findViewById(R.id.send_request);
+        Button util = findViewById(R.id.util);
         sendRequest.setOnClickListener(this);
+        util.setOnClickListener(this);
         responseText = findViewById(R.id.response_text);
     }
 
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.send_request:
                 sendRequestWithOkHttp();
                 break;
+            case R.id.util:
+                HttpUtil.sendOkHttpRequest("http://192.168.2.222/get_data.json", new MyOkHttpCallback());
             default:
                 break;
         }
