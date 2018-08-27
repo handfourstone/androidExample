@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button bindService = findViewById(R.id.bind_service);
         Button unbindService = findViewById(R.id.unbind_service);
         Button getProgress = findViewById(R.id.get_progress);
+        Button startIntentService = findViewById(R.id.start_intent_service);
         startService.setOnClickListener(this);
         stopService.setOnClickListener(this);
         bindService.setOnClickListener(this);
         unbindService.setOnClickListener(this);
         getProgress.setOnClickListener(this);
+        startIntentService.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.get_progress:{
                 Log.d("MYSERVICE", "downloaded percent: "+downloadBinder.getProgress());
+                break;
+            }
+            case R.id.start_intent_service:{
+                Log.d("MYMainActivity", "Thread id is: "+Thread.currentThread().getId());
+                Intent intentService = new Intent(this, MyIntentService.class);
+                startService(intentService);
                 break;
             }
             default:
