@@ -17,6 +17,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +27,39 @@ public class MainActivity extends AppCompatActivity {
     public  LocationClient mLocationClient;
     private TextView positionText;
     private String provider;
+    private int runTimes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(new MyLocationListener());
         positionText = findViewById(R.id.possition_text_view);
+
+        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient.registerLocationListener(new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(final BDLocation bdLocation) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runTimes ++;
+                        StringBuilder currentPosition = new StringBuilder();
+                        currentPosition.append("维度：").append(bdLocation.getLatitude()).append("\n")
+                                .append("经度：").append(bdLocation.getLongitude()).append("\n");
+                        currentPosition.append("定位方式：");
+                        if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {
+                            currentPosition.append("GPS\n");
+                        } else if(bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+                            currentPosition.append("网络\n");
+                        } else {
+                            currentPosition.append(bdLocation.getLocType()).append("\n");
+                        }
+                        currentPosition.append("运行次数："+runTimes);
+                        positionText.setText(currentPosition);
+                    }
+                });
+            }
+        });
 
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -53,29 +79,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class  MyLocationListener implements BDLocationListener {
-        @Override
-        public void onReceiveLocation(final BDLocation bdLocation) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    StringBuilder currentPosition = new StringBuilder();
-                    currentPosition.append("维度：").append(bdLocation.getLatitude()).append("\n")
-                            .append("经度：").append(bdLocation.getLongitude()).append("\n");
-                    currentPosition.append("定位方式：");
-                    if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {
-                        currentPosition.append("GPS");
-                    } else if(bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
-                        currentPosition.append("网络");
-                    }
-                    positionText.setText(currentPosition);
-                }
-            });
-        }
+    private void requestLocation() {
+        initLocation();
+        mLocationClient.start();
     }
 
-    private void requestLocation() {
-        mLocationClient.start();
+    private void initLocation() {
+        LocationClientOption option = new LocationClientOption();
+        option.setScanSpan(5000);
+        mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
     }
 
     @Override
