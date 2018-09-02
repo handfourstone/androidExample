@@ -18,6 +18,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,19 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         runTimes ++;
                         StringBuilder currentPosition = new StringBuilder();
-                        currentPosition.append("维度：").append(bdLocation.getLatitude()).append("\n")
-                                .append("经度：").append(bdLocation.getLongitude()).append("\n");
-                        currentPosition.append("定位方式：");
-                        if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {
-                            currentPosition.append("GPS\n");
-                        } else if(bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
-                            currentPosition.append("网络\n");
-                        } else {
-                            currentPosition.append(bdLocation.getLocType()).append("\n");
+                        currentPosition.append("维度："+ bdLocation.getLatitude() +  "   经度：" + bdLocation.getLongitude() + "\n");
+                        currentPosition.append("定位码：" + bdLocation.getLocType()  + "   描述：" + bdLocation.getLocTypeDescription() + "\n");
+
+                        currentPosition.append("地址：" + bdLocation.getCountry() + bdLocation.getProvince() + bdLocation.getCity() +  bdLocation.getDistrict()  + bdLocation.getStreet() + "\n");
+                        currentPosition.append("方向：" + bdLocation.getDirection() + "\n");
+                        currentPosition.append("描述：" + bdLocation.getLocationDescribe() + "\n");
+                        currentPosition.append("\n我的附近：\n");
+                        int poiTimes = 0;
+                        for (Poi poi : bdLocation.getPoiList()) {
+                            poiTimes++;
+                            currentPosition.append("【第"+ poiTimes +"】" + "名称：" + poi.getName() + "   概率：" + poi.getRank() + "\n\n");
                         }
-                        currentPosition.append("运行次数："+runTimes);
+                        currentPosition.append("\n运行次数："+runTimes);
                         positionText.setText(currentPosition);
                     }
                 });
@@ -89,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         option.setScanSpan(5000);
         // 设置定位模式为仅支持GPS模式
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setIsNeedAddress(true);
+        option.setIsNeedLocationDescribe(true);
+        option.setIsNeedAltitude(true);
+        //兴趣点 point of interest
+        option.setIsNeedLocationPoiList(true);
+        option.setNeedDeviceDirect(true);
         mLocationClient.setLocOption(option);
     }
 
