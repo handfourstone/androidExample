@@ -19,6 +19,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,27 @@ public class MainActivity extends AppCompatActivity {
     private TextView positionText;
     private String provider;
     private int runTimes = 0;
+    private MapView mapView;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         positionText = findViewById(R.id.possition_text_view);
+        mapView = findViewById(R.id.bmapView);
 
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new BDAbstractLocationListener() {
@@ -105,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLocationClient.stop();
+        mapView.onDestroy();
     }
 
     @Override
