@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setScanSpan(5000);
+        // 设置定位模式为仅支持GPS模式
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         mLocationClient.setLocOption(option);
     }
 
