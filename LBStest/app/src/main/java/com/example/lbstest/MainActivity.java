@@ -20,7 +20,11 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private String provider;
     private int runTimes = 0;
     private MapView mapView;
+    private BaiduMap baiduMap;
+    private boolean isFirstLocate = true;
 
     @Override
     protected void onResume() {
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         positionText = findViewById(R.id.possition_text_view);
         mapView = findViewById(R.id.bmapView);
+        baiduMap = mapView.getMap();
 
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new BDAbstractLocationListener() {
@@ -78,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                         positionText.setText(currentPosition);
                     }
                 });
+                if (bdLocation.getLocType() == BDLocation.TypeGpsLocation || bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+                    nagigateTo(bdLocation,17);
+                }
             }
         });
 
@@ -96,6 +106,18 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
         } else {
             requestLocation();
+        }
+    }
+
+    private void nagigateTo(BDLocation location, float precision) {
+        if (isFirstLocate) {
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
+            baiduMap.animateMapStatus(update);
+            //缩放比例3.0~19.0，数字越大越详细
+            update = MapStatusUpdateFactory.zoomTo(precision);
+            baiduMap.animateMapStatus(update);
+            isFirstLocate = false;
         }
     }
 
