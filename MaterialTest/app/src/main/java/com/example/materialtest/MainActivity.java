@@ -1,6 +1,7 @@
 package com.example.materialtest;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"FAB clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
