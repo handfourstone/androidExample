@@ -1,5 +1,7 @@
 package com.example.materialtest;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,23 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button1:{
-                Toast.makeText(getApplicationContext(),"You chicked menu Button1", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.button2:{
-                Toast.makeText(getApplicationContext(),"You chicked menu Button2", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            default:
-                break;
-        }
-    }
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     @Override
@@ -38,8 +24,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         // 实现既使用了 ToolBar ，又让它的外观与 ActionBar 一致
         setSupportActionBar(toolbar);
-        findViewById(R.id.button1).setOnClickListener(this);
-        findViewById(R.id.button2).setOnClickListener(this);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_call);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
