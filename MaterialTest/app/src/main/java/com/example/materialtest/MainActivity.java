@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +19,32 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+
+    private Fruits []fruits = {new Fruits("Apple",R.drawable.apple_pic),new Fruits("Banana", R.drawable.banana_pic),
+    new Fruits("Orange", R.drawable.banana_pic), new Fruits("Watermelon", R.drawable.watermelon_pic),
+    new Fruits("Pear", R.drawable.pear_pic), new Fruits("Grape", R.drawable.grape_pic),
+    new Fruits("Pineapple", R.drawable.pineapple_pic), new Fruits("Strawberry",R.drawable.strawberry_pic),
+    new Fruits("Cherry",R.drawable.cherry_pic), new Fruits("Mango", R.drawable.mango_pic)};
+
+    private List<Fruits> fruitsList = new ArrayList<>();
+    private FruitAdapter adapter;
+
+    private void initFruits() {
+        fruitsList.clear();
+        for (int i=0; i<50; i++) {
+            Random random = new Random();
+            int index = random.nextInt(fruits.length);
+            fruitsList.add(fruits[index]);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        initFruits();
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new FruitAdapter(fruitsList);
+        recyclerView.setAdapter(adapter);
+
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
