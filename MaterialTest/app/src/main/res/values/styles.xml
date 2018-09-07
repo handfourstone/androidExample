@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--5.0之前的系统无法指定状态栏颜色-->
+    <style name="FruitActivityTheme" parent="AppTheme">
+    </style>
 </resources>
