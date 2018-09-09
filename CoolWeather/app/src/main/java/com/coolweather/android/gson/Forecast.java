@@ -6,11 +6,12 @@ public class Forecast {
 
     public String date;
 
-    @SerializedName("temp")
+    @SerializedName("tmp")
     public Temperature temperature;
 
     @SerializedName("cond")
     public More more;
+
 
     public class Temperature {
         public String max;
